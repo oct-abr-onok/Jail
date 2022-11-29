@@ -6,31 +6,6 @@
 #include <fstream>
 #include <ctime>
 
-//Фабрики стратегий:
-class StrategyFactory
-{
-public:
-    virtual Strategy *create() const;
-};
-
-class Triv1Factory : public StrategyFactory
-{
-public:
-    Strategy *create() const;
-};
-
-class Triv2Factory : public StrategyFactory
-{
-public:
-    Strategy *create() const;
-};
-
-class Triv3Factory : public StrategyFactory
-{
-public:
-    Strategy *create() const;
-};
-
 //Стратегии:
 class Strategy
 {
@@ -56,6 +31,31 @@ class Triv2 : public Strategy
 class Triv3 : public Strategy
 {
     int choice(void);
+};
+
+//Фабрики стратегий:
+class StrategyFactory
+{
+public:
+    virtual Strategy *create() const;
+};
+
+class Triv1Factory : public StrategyFactory
+{
+public:
+    Strategy *create() const;
+};
+
+class Triv2Factory : public StrategyFactory
+{
+public:
+    Strategy *create() const;
+};
+
+class Triv3Factory : public StrategyFactory
+{
+public:
+    Strategy *create() const;
 };
 
 #endif /*SF_642*/
