@@ -32,6 +32,11 @@ int Triv3::choice(void)
 }
 
 //Фабрики стратегий:
+Strategy *StrategyFactory::create() const
+{
+    return new Strategy;
+}
+
 Strategy *Triv1Factory::create() const
 {
     return new Triv1;
