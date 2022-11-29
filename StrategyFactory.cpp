@@ -13,7 +13,7 @@ void Strategy::add_points(int cnt)
 
 int Strategy::choice(void)
 {
-    return 0;
+    return 1;
 }
 
 int Triv1::choice(void)
@@ -53,15 +53,15 @@ Strategy *Triv3Factory::create() const //попробовать сделать �
 }
 
 //эксперименты
-int main()
-{
-    srand(time(0));
-    Triv3Factory T1F;
-    Strategy *S = T1F.create();
-    for (int j = 0; j < 10; j++)
-    {
-        int i = S->choice();
-        std::cout << i << std::endl;
-    }
-    return 0;
-}
+// int main()
+// {
+//     srand(time(0));
+//     Triv3Factory T1F;
+//     Strategy *S = T1F.create();
+//     for (int j = 0; j < 10; j++)
+//     {
+//         int i = S->choice();
+//         std::cout << i << std::endl;
+//     }
+//     return 0;
+// }
