@@ -1,4 +1,5 @@
 cd build
 cmake ..
 cmake --build .
-Debug\Jail.exe
+cd ..
+build\Debug\Jail.exe
