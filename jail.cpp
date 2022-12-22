@@ -12,17 +12,17 @@ void read_matrix(matrix ***matrix, std::string filename = "default_matrix.txt")
     std::string buf;
     std::getline(fin, buf);
 
-    //чтение всей остальной матрицы
+    // чтение всей остальной матрицы
     int p1, p2, p3;
     for (int i = 0; i < 8; i++)
     {
         std::getline(fin, buf);
-        //выбор заключённых
+        // выбор заключённых
         buf[0] == 'C' ? p1 = 1 : p1 = 0;
         buf[3] == 'C' ? p2 = 1 : p2 = 0;
         buf[6] == 'C' ? p3 = 1 : p3 = 0;
 
-        //баллы заключённым соответственно
+        // баллы заключённым соответственно
         matrix[p1][p2][p3].p1_res = buf[13] - '0';
         matrix[p1][p2][p3].p2_res = buf[16] - '0';
         matrix[p1][p2][p3].p3_res = buf[19] - '0';
@@ -71,7 +71,8 @@ void detailed_competition(matrix ***matrix, StrategyFactory *SF1, StrategyFactor
 int main(int argc, char *argv[])
 {
     srand(time(0));
-    //матрица баллов
+
+    // матрица баллов
     matrix ***matrix = new struct matrix **[2];
     for (int i = 0; i < 2; i++)
     {
@@ -82,13 +83,49 @@ int main(int argc, char *argv[])
         }
     }
 
-    //работа с аргументами коммандной строки
-    //В РАЗРАБОТКЕ
+    // работа с аргументами коммандной строки
+    // jail.exe -mode detailed --steps 5 --matrix example_matrix.txt
+    int mode = 0; // 0 - detailed, 1 - fast, 2 - tournament
+    std::string matrix_file_name = "default_matrix.txt";
+    int steps = -1;
 
-    read_matrix(matrix);
+    for (int i = 1; i < argc; i++)
+    {
+        std::string str = std::string(argv[i]);
+        std::string command;
+        command = str.substr(0, 5);
+        if (command == "-mode=")
+        {
+            command = str.substr(6, std::string::npos);
+            if (command == "detailed")
+            {
+                mode = 0;
+            }
+            else if (command == "fast")
+            {
+                mode = 1;
+            }
+            else if (command == "tournament")
+            {
+                mode = 2;
+            }
+        }
+        command = str.substr(0, 7);
+        if (command == "--steps=")
+        {
+            steps = stoi(str.substr(8, std::string::npos));
+        }
+        command = str.substr(0, 8);
+        if (command == "--matrix=")
+        {
+            matrix_file_name = str.substr(9, std::string::npos);
+        }
+    }
+
+    read_matrix(matrix, matrix_file_name);
     std::cout << "reading res: " << matrix[1][1][1].p1_res << std::endl;
 
-    //соревнование с детализацией
+    // соревнование с детализацией
     StrategyFactory *SF1 = new Triv1Factory;
     StrategyFactory *SF2 = new Triv2Factory;
     StrategyFactory *SF3 = new Triv3Factory;
